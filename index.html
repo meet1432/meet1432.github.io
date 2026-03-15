@@ -692,7 +692,7 @@ section {
       <div style="font-family:'Clash Display',sans-serif;font-size:24px;font-weight:700;color:var(--bg);margin-bottom:6px;">Have an Odoo project in mind?</div>
       <div style="font-family:'Fira Code',monospace;font-size:13px;color:rgba(245,240,232,0.4);letter-spacing:1px;">Let's discuss requirements, timeline & pricing.</div>
     </div>
-    <a href="mailto:meetpate9893@gmail.com" style="font-family:'Fira Code',monospace;font-size:13px;padding:16px 36px;background:var(--accent);color:white;border-radius:4px;text-decoration:none;letter-spacing:1px;transition:all 0.2s;white-space:nowrap;" onmouseenter="this.style.background='#c94010'" onmouseleave="this.style.background='var(--accent)'">Let's Talk →</a>
+    <a href="/cdn-cgi/l/email-protection#dab7bfbfaeaabbaebfe3e2e3e99abdb7bbb3b6f4b9b5b7" style="font-family:'Fira Code',monospace;font-size:13px;padding:16px 36px;background:var(--accent);color:white;border-radius:4px;text-decoration:none;letter-spacing:1px;transition:all 0.2s;white-space:nowrap;" onmouseenter="this.style.background='#c94010'" onmouseleave="this.style.background='var(--accent)'">Let's Talk →</a>
   </div>
 </section>
 
@@ -964,6 +964,13 @@ section {
 
   <div class="certs-grid">
     <div class="cert-card fade-up">
+      <span class="cert-icon">🟣</span>
+      <div>
+        <div class="cert-title">Odoo 18 Functional Certification</div>
+        <div class="cert-org">Odoo S.A.</div>
+      </div>
+    </div>
+    <div class="cert-card fade-up">
       <span class="cert-icon">🧠</span>
       <div>
         <div class="cert-title">AI Fundamentals</div>
@@ -1005,7 +1012,7 @@ section {
   </div>
 </section>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Custom cursor
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
@@ -1041,14 +1048,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// Scroll animations
+// Scroll animations - sibling-based stagger, low threshold so all cards appear
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      const siblings = Array.from(entry.target.parentElement.querySelectorAll('.fade-up'));
+      const i = siblings.indexOf(entry.target);
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }, Math.min(i * 80, 400));
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
